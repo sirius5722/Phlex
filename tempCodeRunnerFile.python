@@ -1,0 +1,104 @@
+import pygame
+from pygame.locals import *
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+
+# Initial positions
+body_position = [0, 0, 0]
+head_angle = 0
+left_arm_angle = 0
+right_arm_angle = 0
+left_leg_angle = 0
+right_leg_angle = 0
+
+# Pygame setup
+pygame.init()
+display = (800, 600)
+pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
+pygame.display.set_caption("Human Body Animation")
+
+# OpenGL setup
+gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
+glTranslatef(0.0, 0.0, -5)
+
+# Function to draw the human body
+def draw_human_body():
+    # Body
+    glColor3fv((0, 1, 0))
+    glutSolidCube(1)
+
+    # Head
+    glTranslatef(0, 1.5, 0)
+    glColor3fv((1, 1, 0))
+    glutSolidSphere(0.5, 50, 50)
+    glTranslatef(0, -1.5, 0)
+
+    # Left Arm
+    glTranslatef(-0.75, 1, 0)
+    glRotatef(left_arm_angle, 1, 0, 0)
+    glColor3fv((1, 0, 0))
+    glutSolidCube(0.2)
+    glRotatef(-left_arm_angle, 1, 0, 0)
+    glTranslatef(0.75, -1, 0)
+
+    # Right Arm
+    glTranslatef(0.75, 1, 0)
+    glRotatef(right_arm_angle, 1, 0, 0)
+    glColor3fv((1, 0, 0))
+    glutSolidCube(0.2)
+    glRotatef(-right_arm_angle, 1, 0, 0)
+    glTranslatef(-0.75, -1, 0)
+
+    # Left Leg
+    glTranslatef(-0.25, -1.5, 0)
+    glRotatef(left_leg_angle, 1, 0, 0)
+    glColor3fv((0, 0, 1))
+    glutSolidCube(0.2)
+    glRotatef(-left_leg_angle, 1, 0, 0)
+    glTranslatef(0.25, 1.5, 0)
+
+    # Right Leg
+    glTranslatef(0.25, -1.5, 0)
+    glRotatef(right_leg_angle, 1, 0, 0)
+    glColor3fv((0, 0, 1))
+    glutSolidCube(0.2)
+    glRotatef(-right_leg_angle, 1, 0, 0)
+    glTranslatef(-0.25, 1.5, 0)
+
+# Pygame main loop
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+
+    # Clear the screen
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+    # Draw the human body
+    glPushMatrix()
+    glTranslatef(*body_position)
+    draw_human_body()
+    glPopMatrix()
+
+    # Update display
+    pygame.display.flip()
+    pygame.time.wait(10)
+
+    # Handle movement control using sliders (or any other input method)
+    keys = pygame.key.get_pressed()
+    if keys[K_LEFT]:
+        body_position[0] += 0.1
+    if keys[K_RIGHT]:
+        body_position[0] -= 0.1
+    if keys[K_UP]:
+        body_position[1] -= 0.1
+    if keys[K_DOWN]:
+        body_position[1] += 0.1
+
+    # Handle rotation control using sliders
+    # (you can replace this part with sliders or any other input method)
+    left_arm_angle += 1
+    right_arm_angle -= 1
+    left_leg_angle -= 1
+    right_leg_angle += 1
