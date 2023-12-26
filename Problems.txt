@@ -8,3 +8,7 @@ Issues :
  3 - I have to enter data manually about the joints of interests in order to display how correct the exercise is 
 
  4 - Exercises need to be done on the right side and left sidegit reset
+
+
+
+
