@@ -2,10 +2,10 @@ Issues :
  1 - Some Exercises require holding on position for certain amount of time
 	>> we may consider each second as a separate pose
  
- 2 - The Model cannot detect all poses
+ 2 - The Model cannot detect all poses (Ziad)
 	>> We might need preprocessing 
 
- 3 - I have to enter data manually about the joints of interests in order to display how correct the exercise is 
+ 3 - I have to enter data manually about the joints of interests in order to display how correct the exercise is  
 
  4 - Exercises need to be done on the right side and left sidegit reset
 
